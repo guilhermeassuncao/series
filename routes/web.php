@@ -1,10 +1,10 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\SeriesController;
+use App\Http\Controllers\SeriadosController;
 
 Route::get('/', function () {
-    return redirect('/series');
+    return redirect('/seriados');
 });
 
-Route::resource('series', SeriesController::class)->except(['show']);
+Route::resource('seriados', SeriadosController::class)->except(['show']);
