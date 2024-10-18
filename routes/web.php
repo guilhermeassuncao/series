@@ -3,6 +3,8 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\SeriesController;
 
-Route::get('/series', [SeriesController::class, 'index']);
-Route::get('/series/create', [SeriesController::class, 'create']);
-Route::post('/series', [SeriesController::class, 'store']);
+Route::get('/', function () {
+    return redirect('/series');
+});
+
+Route::resource('series', SeriesController::class)->except(['show']);
