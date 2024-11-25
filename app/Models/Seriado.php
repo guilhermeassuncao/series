@@ -2,11 +2,14 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 /**
- * @property string nome
+ * @property int $id
+ * @property string $nome
+ * @property Temporada[] $temporadas
  */
 
 class Seriado extends Model
@@ -22,6 +25,8 @@ class Seriado extends Model
 
     protected static function booted()
     {
-        self::addGlobalScope();
+        self::addGlobalScope('ordenado', function (Builder $queryBuilder) {
+            $queryBuilder->orderBy('nome');
+        });
     }
 }

@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\SeriadosFormRequest;
+use App\Models\Episodio;
+use App\Models\Temporada;
 use Illuminate\Http\Request;
 use App\Models\Seriado;
 use Illuminate\View\View;
@@ -25,6 +27,30 @@ class SeriadosController extends Controller
     public function store(SeriadosFormRequest $request): RedirectResponse
     {
         $seriado = Seriado::query()->create(($request->all()));
+        $temporadas = [];
+
+        for ($i = 1; $i <= $request->numeroTemporadas; $i++) {
+            $temporadas[] = [
+                'seriado_id' => $seriado->id,
+                'numero' => $i
+            ];
+        }
+
+        Temporada::insert($temporadas);
+        
+        $episodios = [];
+
+        foreach ($seriado->temporadas() as $tempora) {
+            for ($j = 1; $j <= $request->episodioPorTemporada; $j++) {
+                $episodios[] = [
+                    'temporada_id' => $tempora->id,
+                    'numero' => $j
+                ];
+            } 
+        }
+
+        Episodio::insert($episodios);
+
 
         return to_route('seriados.index')->with('sucesso', "Série $seriado->nome criada com sucesso");
     }
