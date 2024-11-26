@@ -4,6 +4,8 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Collection;
+
 
 
 /**
@@ -11,7 +13,7 @@ use Illuminate\Database\Eloquent\Model;
  * @property string $numero
  * @property int $seriado_id
  * @property Seriado $seriado
- * @property Episodio[] $episodios
+ * @property Episodio[]|Collection $episodios
  */
 
 class Temporada extends Model
@@ -27,5 +29,10 @@ class Temporada extends Model
     public function episodios(): \Illuminate\Database\Eloquent\Relations\HasMany
     {
         return $this->hasMany(Episodio::class);
+    }
+
+    public function numeroEpisodiosAssistidos(): int
+    {
+        return $this->episodios->filter(fn($episodio) => $episodio->assistido)->count();
     }
 }

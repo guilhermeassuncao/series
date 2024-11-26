@@ -15,6 +15,7 @@ return new class extends Migration
             $table->id();
             $table->unsignedTinyInteger('numero');
             $table->foreignId('temporada_id')->constrained()->onDelete('cascade');
+            $table->boolean('assistido')->default(false);
         });
     }
 

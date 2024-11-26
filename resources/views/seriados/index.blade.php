@@ -1,13 +1,7 @@
 <x-layout title="Séries">
     <a href="{{ route('seriados.create') }}" class="btn btn-dark mb-2">Adicionar nova série</a>
 
-    @if (session('sucesso'))
-        <div class="alert alert-success">
-            {{ session('sucesso') }}
-        </div>
-    @endif
-
-    <ul class="list-group">
+    <ul class="list-group mt-4">
         @foreach ($seriados as $seriado)
             <li class="list-group-item d-flex justify-content-between align-items-center">
                 
