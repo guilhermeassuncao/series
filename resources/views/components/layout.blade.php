@@ -15,7 +15,13 @@
     <nav class="navbar navbar-expand-lg bg-body-tertiary">
         <div class="container-fluid">
             <a class="navbar-brand" href="{{ route('seriados.index') }}" class="navbar-brand">Seriados</a>
-            <a href="{{ route('login.destroy') }}" class="navbar-brand">Sair</a>
+            @auth()
+                <a href="{{ route('login.destroy') }}" class="navbar-brand">Sair</a>
+            @endauth
+
+            @guest()
+                <a href="{{ route('login') }}" class="navbar-brand">Entrar</a>
+            @endguest
         </div>
     </nav>
     <div class="container">

@@ -21,6 +21,6 @@ class LoginController extends Controller
 
     public function destroy() {
         Auth::logout();
-        return to_route("login.index");
+        return to_route("login");
     }
 }

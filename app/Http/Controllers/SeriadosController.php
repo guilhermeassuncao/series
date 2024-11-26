@@ -2,17 +2,20 @@
 
 namespace App\Http\Controllers;
 
-use App;
+use App\Http\Middleware\Autenticador;
 use App\Http\Requests\SeriadosFormRequest;
-
 use App\Models\Seriado;
 use Illuminate\View\View;
 use Illuminate\Http\RedirectResponse;
 use App\Repositories\SeriadosRepository;
 
-
 class SeriadosController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware(Autenticador::class);
+    }
+
     public function index(): View
     {
         $seriados = Seriado::query()->orderBy('nome')->get();
