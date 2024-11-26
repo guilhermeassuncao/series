@@ -12,6 +12,12 @@
 </head>
 
 <body>
+    <nav class="navbar navbar-expand-lg bg-body-tertiary">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="{{ route('seriados.index') }}" class="navbar-brand">Seriados</a>
+            <a href="{{ route('login.destroy') }}" class="navbar-brand">Sair</a>
+        </div>
+    </nav>
     <div class="container">
         <h1>{{ $title }}</h1>
 
@@ -20,7 +26,7 @@
                 {{ session('sucesso') }}
             </div>
         @endif
-        
+
         @if ($errors->any())
             <div class="alert alert-danger">
                 <ul>
