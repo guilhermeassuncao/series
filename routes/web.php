@@ -3,6 +3,7 @@
 use App\Http\Controllers\EpisodiosController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\UsersController;
+use App\Mail\SeriadoCriado;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\SeriadosController;
 use App\Http\Controllers\TemporadasController;
@@ -29,5 +30,14 @@ Route::get('/logout', [LoginController::class, 'destroy'])->name('login.destroy'
 
 Route::get('registrar', [UsersController::class, 'create'])->name('users.create');
 Route::post('registrar', [UsersController::class, 'store'])->name('users.store');
+
+Route::get('/email', function () {
+    return new SeriadoCriado(
+        "Game of Thrones",
+        5,
+        10,
+        24
+    );
+});
 
 
