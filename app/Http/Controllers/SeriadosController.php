@@ -4,13 +4,11 @@ namespace App\Http\Controllers;
 
 use App\Http\Middleware\Autenticador;
 use App\Http\Requests\SeriadosFormRequest;
-use App\Mail\SeriadoCriado;
 use App\Models\Seriado;
-use App\Models\User;
 use Illuminate\View\View;
 use Illuminate\Http\RedirectResponse;
 use App\Repositories\SeriadosRepository;
-use Illuminate\Support\Facades\Mail;
+use App\Events\SeriadoCriadoEvent;
 
 class SeriadosController extends Controller
 {
@@ -35,22 +33,7 @@ class SeriadosController extends Controller
     {
         $seriado = $repository->adicionar($request);
 
-        $listaUsuarios = User::all();
-
-        foreach ($listaUsuarios as $usuario) {
-            $email = new SeriadoCriado(
-                $seriado->nome,
-                $seriado->id,
-                $request->numeroTemporadas,
-                $request->episodioPorTemporada,
-            );
-
-            $email->subject = "Seriado {$seriado->nome} criado";
-
-            Mail::to($usuario)->send($email);
-
-            sleep(1);
-        }
+        SeriadoCriadoEvent::dispatch($seriado->nome, $seriado->id, $request->numeroTemporadas, $request->episodioPorTemporada);
 
         return to_route('seriados.index')->with('sucesso', "Série $seriado->nome criada com sucesso");
     }
