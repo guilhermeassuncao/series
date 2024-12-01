@@ -6,5 +6,5 @@ use App\Http\Requests\SeriadosFormRequest;
 
 interface SeriadosRepository
 {
-    public function adicionar(SeriadosFormRequest $request): Seriado;
+    public function adicionar(array $dados): Seriado;
 }

@@ -32,8 +32,8 @@ class EnviarEmailSobreSeriadoCriado implements ShouldQueue
             $email = new SeriadoCriado(
                 $event->nome,
                 $event->id,
-                $event->numeroTemporadas,
-                $event->episodioPorTemporada,
+                $event->numero_temporadas,
+                $event->episodio_por_temporada,
             );
 
             $tempo = now()->addSeconds($indice * 5);

@@ -11,14 +11,17 @@ use App\Models\Seriado;
 
 class EloquentSeriadosRepository implements SeriadosRepository
 {
-    public function adicionar(SeriadosFormRequest $request): Seriado
+    public function adicionar(array $dados): Seriado
     {
         DB::beginTransaction();
 
-        $seriado = Seriado::query()->create($request->all());
+        $seriado = Seriado::query()->create([
+            'nome' => $request->nome,
+            'capa' => $request->capaCaminho
+        ]);
         $temporadas = [];
 
-        for ($i = 1; $i <= $request->numeroTemporadas; $i++) {
+        for ($i = 1; $i <= $request->numero_temporadas; $i++) {
             $temporadas[] = [
                 'seriado_id' => $seriado->id,
                 'numero' => $i
@@ -30,7 +33,7 @@ class EloquentSeriadosRepository implements SeriadosRepository
         $episodios = [];
 
         foreach ($seriado->temporadas as $temporada) {
-            for ($j = 1; $j <= $request->episodioPorTemporada; $j++) {
+            for ($j = 1; $j <= $request->episodio_por_temporada; $j++) {
                 $episodios[] = [
                     'temporada_id' => $temporada->id,
                     'numero' => $j

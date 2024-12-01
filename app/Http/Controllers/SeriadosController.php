@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Middleware\Autenticador;
 use App\Http\Requests\SeriadosFormRequest;
 use App\Models\Seriado;
+use App\Services\SeriadoService;
 use Illuminate\View\View;
 use Illuminate\Http\RedirectResponse;
 use App\Repositories\SeriadosRepository;
@@ -29,11 +30,9 @@ class SeriadosController extends Controller
         return view('seriados.create');
     }
 
-    public function store(SeriadosFormRequest $request, SeriadosRepository $repository): RedirectResponse
+    public function store(SeriadosFormRequest $request, SeriadoService $service): RedirectResponse
     {
-        $seriado = $repository->adicionar($request);
-
-        SeriadoCriadoEvent::dispatch($seriado->nome, $seriado->id, $request->numeroTemporadas, $request->episodioPorTemporada);
+        $seriado = $service->criarSeriado($request->validated());
 
         return to_route('seriados.index')->with('sucesso', "Série $seriado->nome criada com sucesso");
     }

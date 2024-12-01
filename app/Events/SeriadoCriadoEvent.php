@@ -20,8 +20,8 @@ class SeriadoCriadoEvent
     public function __construct(
         public readonly string $nome,
         public readonly int $id,
-        public readonly int $numeroTemporadas,
-        public readonly int $episodioPorTemporada,
+        public readonly int $numero_temporadas,
+        public readonly int $episodio_por_temporada,
     ) {
     }
 }

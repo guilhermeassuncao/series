@@ -22,6 +22,6 @@ class LogSeriadoCriado implements ShouldQueue
      */
     public function handle(SeriadoCriadoEvent $event): void
     {
-        Log::info("Seriado criado: $event->nome, $event->id, $event->numeroTemporadas, $event->episodioPorTemporada");
+        Log::info("Seriado criado: $event->nome, $event->id, $event->numero_temporadas, $event->episodio_por_temporada");
     }
 }
